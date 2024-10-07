@@ -10,7 +10,7 @@ demandas_clientes = np.loadtxt('./data/demandas_clientes.csv', delimiter=',') # 
 matriz_distancia = np.loadtxt('./data/matriz_distancia.csv', delimiter=',') # Matriz de distância
 
 # Coordenadas fixas dos clientes e depósito
-coordenadasClientes = np.loadtxt('./data/coordenadas_clientes.csv', delimiter=',') 
+coordenadas_clientes = np.loadtxt('./data/coordenadas_clientes.csv', delimiter=',') 
 deposit_coord = (500, 400) 
 
 # Inicializa o Pygame
@@ -37,7 +37,7 @@ def calculate_distance(route):
 def create_initial_population_knn(size):
     population = []
     knn = NearestNeighbors(n_neighbors=5)
-    knn.fit(coordenadasClientes)
+    knn.fit(coordenadas_clientes)
 
     for _ in range(size):
         route = []
@@ -45,7 +45,7 @@ def create_initial_population_knn(size):
         current_client = 0  # Começa no depósito
 
         while remaining_clients:
-            distances, indices = knn.kneighbors([coordenadasClientes[current_client]], n_neighbors=5)
+            distances, indices = knn.kneighbors([coordenadas_clientes[current_client]], n_neighbors=5)
             next_client = None
             
             for idx in indices[0]:
@@ -131,7 +131,13 @@ def to_routes(route):
     return routes
 
 # Algoritmo Genético com as melhorias
-def genetic_algorithm(population_size, generations, population_method='knn', initial_value = None):
+# Algoritmo Genético com as melhorias
+def genetic_algorithm(population_size,
+                      generations,
+                      population_method='knn',
+                      initial_value=None,
+                      no_improvement_limit=1000):
+
     if population_method == 'knn':
         population = create_initial_population_knn(population_size)
         if initial_value is not None:
@@ -144,6 +150,9 @@ def genetic_algorithm(population_size, generations, population_method='knn', ini
     best_solution = min(population, key=lambda r: calculate_distance(to_routes(r)))
     best_distance = calculate_distance(to_routes(best_solution))
     
+    # Contador de gerações sem melhoria
+    generations_without_improvement = 0
+
     for generation in range(generations):
         print(f"Geração {generation}: Melhor distância (Genético, {population_method}) = {best_distance}")
         selected = tournament_selection(population)
@@ -165,10 +174,19 @@ def genetic_algorithm(population_size, generations, population_method='knn', ini
         if current_distance < best_distance:
             best_solution = current_best
             best_distance = current_distance
+            generations_without_improvement = 0  # Reiniciar o contador quando há melhoria
+        else:
+            generations_without_improvement += 1  # Incrementar o contador se não houver melhoria
+        
+        # Verificar se excedeu o limite de gerações sem melhoria
+        if generations_without_improvement >= no_improvement_limit:
+            print(f"Interrompendo a execução após {generation} gerações devido à falta de melhoria.")
+            break
         
         visualize(best_solution)
 
     return best_solution, best_distance
+
 
 # Função de visualização
 def visualize(solution):
@@ -176,7 +194,7 @@ def visualize(solution):
     
     pygame.draw.circle(screen, (0, 255, 0), deposit_coord, 10)  
     
-    for i, coord in enumerate(coordenadasClientes):
+    for i, coord in enumerate(coordenadas_clientes):
         pygame.draw.circle(screen, (0, 0, 255), coord, 5)  
     
     routes = to_routes(solution)
@@ -184,8 +202,8 @@ def visualize(solution):
         route_with_deposit = [0] + sub_route + [0]  
         for i in range(len(route_with_deposit) - 1):
             pygame.draw.line(screen, (255, 0, 0), 
-                             coordenadasClientes[route_with_deposit[i] - 1] if route_with_deposit[i] != 0 else deposit_coord,
-                             coordenadasClientes[route_with_deposit[i + 1] - 1] if route_with_deposit[i + 1] != 0 else deposit_coord,
+                             coordenadas_clientes[route_with_deposit[i] - 1] if route_with_deposit[i] != 0 else deposit_coord,
+                             coordenadas_clientes[route_with_deposit[i + 1] - 1] if route_with_deposit[i + 1] != 0 else deposit_coord,
                              2)  
 
     pygame.display.flip()
@@ -229,26 +247,41 @@ def greedy_algorithm():
 if __name__ == "__main__":
     num_iterations = 5  # Número de iterações para melhorar a solução
     generations=5000
-    best_value = [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
-    # Executa o Algoritmo Genético com o método KNN
-    best_solution_genetic_knn = best_value
-    for i in range(num_iterations):
-        best_solution_genetic_knn, best_distance_genetic_knn = genetic_algorithm(population_size=50, generations=generations, population_method='knn', initial_value = best_solution_genetic_knn)
 
-    # Executa o Algoritmo Genético com o método aleatório
-    best_solution_genetic = best_value
-    for i in range(num_iterations):
-        best_solution_genetic_random, best_distance_genetic_random = genetic_algorithm(population_size=50, generations=generations, population_method='random', initial_value = best_solution_genetic)
+    best_value = [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
+    actived_best_value = False
+
+    if not actived_best_value:
+        best_value = None
+
+    # Executa o Algoritmo Genético com o método KNN
+    # best_solution_genetic_knn = best_value
+    # for i in range(num_iterations):
+    #     best_solution_genetic_knn, best_distance_genetic_knn = genetic_algorithm(
+    #         population_size=50,
+    #         generations=generations,
+    #         population_method='knn',
+    #         initial_value = best_solution_genetic_knn,
+    #         no_improvement_limit=200)
+
+    # # Executa o Algoritmo Genético com o método aleatório
+    # best_solution_genetic = best_value
+    # for i in range(num_iterations):
+    #     best_solution_genetic_random, best_distance_genetic_random = genetic_algorithm(
+    #         population_size=50,
+    #         generations=generations,
+    #         population_method='random',
+    #         initial_value = best_solution_genetic,
+    #         no_improvement_limit=200)
 
     # Executa o Algoritmo Guloso
     greedy_solution = greedy_algorithm()
     greedy_distance_greedy = calculate_distance(greedy_solution)
-    print('ultimo_knn: 392', 'ultimo_random: 434', 'guloso: 498')
-    
-    print("Melhor distância encontrada (Genético KNN):", best_distance_genetic_knn)
-    print("Melhor solução encontrada (Genético KNN):", best_solution_genetic_knn)
-    print("Melhor distância encontrada (Genético Aleatório):", best_distance_genetic_random)
-    print("Melhor solução encontrada (Genético Aleatório):", best_solution_genetic_random)
+       
+    # print("Melhor distância encontrada (Genético KNN):", best_distance_genetic_knn)
+    # print("Melhor solução encontrada (Genético KNN):", best_solution_genetic_knn)
+    # print("Melhor distância encontrada (Genético Aleatório):", best_distance_genetic_random)
+    # print("Melhor solução encontrada (Genético Aleatório):", best_solution_genetic_random)
     print("Distância total (Gulosa):", greedy_distance_greedy)
     print("Melhor solução encontrada (Gulosa):", greedy_solution)
    
