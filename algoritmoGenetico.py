@@ -255,33 +255,33 @@ if __name__ == "__main__":
         best_value = None
 
     # Executa o Algoritmo Genético com o método KNN
-    # best_solution_genetic_knn = best_value
-    # for i in range(num_iterations):
-    #     best_solution_genetic_knn, best_distance_genetic_knn = genetic_algorithm(
-    #         population_size=50,
-    #         generations=generations,
-    #         population_method='knn',
-    #         initial_value = best_solution_genetic_knn,
-    #         no_improvement_limit=200)
+    best_solution_genetic_knn = best_value
+    for i in range(num_iterations):
+        best_solution_genetic_knn, best_distance_genetic_knn = genetic_algorithm(
+            population_size=50,
+            generations=generations,
+            population_method='knn',
+            initial_value = best_solution_genetic_knn,
+            no_improvement_limit=200)
 
-    # # Executa o Algoritmo Genético com o método aleatório
-    # best_solution_genetic = best_value
-    # for i in range(num_iterations):
-    #     best_solution_genetic_random, best_distance_genetic_random = genetic_algorithm(
-    #         population_size=50,
-    #         generations=generations,
-    #         population_method='random',
-    #         initial_value = best_solution_genetic,
-    #         no_improvement_limit=200)
+    # Executa o Algoritmo Genético com o método aleatório
+    best_solution_genetic = best_value
+    for i in range(num_iterations):
+        best_solution_genetic_random, best_distance_genetic_random = genetic_algorithm(
+            population_size=50,
+            generations=generations,
+            population_method='random',
+            initial_value = best_solution_genetic,
+            no_improvement_limit=200)
 
     # Executa o Algoritmo Guloso
     greedy_solution = greedy_algorithm()
     greedy_distance_greedy = calculate_distance(greedy_solution)
        
-    # print("Melhor distância encontrada (Genético KNN):", best_distance_genetic_knn)
-    # print("Melhor solução encontrada (Genético KNN):", best_solution_genetic_knn)
-    # print("Melhor distância encontrada (Genético Aleatório):", best_distance_genetic_random)
-    # print("Melhor solução encontrada (Genético Aleatório):", best_solution_genetic_random)
+    print("Melhor distância encontrada (Genético KNN):", best_distance_genetic_knn)
+    print("Melhor solução encontrada (Genético KNN):", best_solution_genetic_knn)
+    print("Melhor distância encontrada (Genético Aleatório):", best_distance_genetic_random)
+    print("Melhor solução encontrada (Genético Aleatório):", best_solution_genetic_random)
     print("Distância total (Gulosa):", greedy_distance_greedy)
     print("Melhor solução encontrada (Gulosa):", greedy_solution)
    
