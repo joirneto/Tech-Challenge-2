@@ -246,7 +246,7 @@ def greedy_algorithm():
 # Execução dos Algoritmos e Comparação
 if __name__ == "__main__":
     num_iterations = 5  # Número de iterações para melhorar a solução
-    generations=5000
+    generations=4000
 
     best_value = [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
     actived_best_value = False
