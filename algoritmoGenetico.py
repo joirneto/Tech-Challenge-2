@@ -131,7 +131,6 @@ def to_routes(route):
     return routes
 
 # Algoritmo Genético com as melhorias
-# Algoritmo Genético com as melhorias
 def genetic_algorithm(population_size,
                       generations,
                       population_method='knn',
@@ -245,8 +244,8 @@ def greedy_algorithm():
 
 # Execução dos Algoritmos e Comparação
 if __name__ == "__main__":
-    num_iterations = 5  # Número de iterações para melhorar a solução
-    generations=4000
+    num_iterations = 10  # Número de iterações para melhorar a solução
+    generations=3000
 
     best_value = [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
     actived_best_value = False
