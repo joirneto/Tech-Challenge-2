@@ -102,9 +102,11 @@ A visualização com Pygame permite observar as rotas geradas, ajudando a entend
 
 Por fim, com esta simulação, podemos comparar a eficiência dos algoritmos genéticos (População inicial aleatória e com knn) e do guloso aplicado ao VRP (Vehicle Routing Problem).
 
-Inicialmente o guloso performou mais rápido e melhor em comparação ao genético com população inicial aleatória e crossover. Partindo desse ponto de comparação, inserimos:
+Inicialmente o guloso performou mais rápido e melhor em comparação ao genético com população inicial aleatória e crossover, sendo gerado por 5k gerações. Partindo desse ponto de comparação, inserimos:
 - Mutação adaptativa: Crucial para ajustar a exploração e exploração ao longo do tempo, evitando a estagnação do algoritmo.
 - Elitismo e torneio: Técnicas que garantem um equilíbrio entre exploração (diversidade) e exploração das melhores soluções.
+- 10 interações para cada genético, com 3k gerações por interação.
+- Critério de parada de 1k gerações sem melhoria.
 Com essas melhorias o genético começou a performar melhor, encontrando soluções mais otimizada comparada com o guloso.
 
 Na sequência realizamos uma abordagem heurística para a criação da população inicial do genético. Encontrando assim a melhor solução convergindo entre a 1500ª e 2000ª geração, para o contexto em questão:
