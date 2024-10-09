@@ -263,7 +263,7 @@ if __name__ == "__main__":
     generations=3000
 
     best_value = [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
-    actived_best_value = True
+    actived_best_value = False
 
     if not actived_best_value:
         best_value = None
