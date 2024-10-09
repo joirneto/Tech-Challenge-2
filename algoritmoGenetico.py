@@ -15,7 +15,7 @@ deposit_coord = (500, 400)
 
 # Inicializa o Pygame
 pygame.init()
-screen_width = 900
+screen_width = 1000
 screen_height = 1200
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Algoritmos Genéticos e Guloso - Roteamento de Veículos')
@@ -188,25 +188,40 @@ def genetic_algorithm(population_size,
 
 
 # Função de visualização
+# Lista de nomes dos clientes e do depósito
+nomes_clientes = ["Depósito"] + [f"Cliente {i}" for i in range(1, num_clientes + 1)]
+
+# Função de visualização
 def visualize(solution):
-    screen.fill((255, 255, 255))
+    screen.fill((255, 255, 255))  # Limpa a tela (branco)
     
-    pygame.draw.circle(screen, (0, 255, 0), deposit_coord, 10)  
+    # Fonte para desenhar os nomes
+    font = pygame.font.Font(None, 24)  # Usa a fonte padrão, tamanho 24
     
+    # Desenha o depósito
+    pygame.draw.circle(screen, (0, 255, 0), deposit_coord, 10)  # Círculo para o depósito
+    text_surface = font.render(nomes_clientes[0], True, (0, 0, 0))  # Renderiza o nome "Depósito"
+    screen.blit(text_surface, (deposit_coord[0] + 10, deposit_coord[1]))  # Desenha o nome ao lado do depósito
+    
+    # Desenha os clientes
     for i, coord in enumerate(coordenadas_clientes):
-        pygame.draw.circle(screen, (0, 0, 255), coord, 5)  
+        pygame.draw.circle(screen, (0, 0, 255), coord, 5)  # Círculo para os clientes
+        text_surface = font.render(nomes_clientes[i + 1], True, (0, 0, 0))  # Renderiza o nome do cliente
+        screen.blit(text_surface, (coord[0] + 10, coord[1]))  # Desenha o nome ao lado do cliente
     
+    # Desenha as rotas
     routes = to_routes(solution)
     for sub_route in routes:
-        route_with_deposit = [0] + sub_route + [0]  
+        route_with_deposit = [0] + sub_route + [0]  # Rota incluindo o depósito
         for i in range(len(route_with_deposit) - 1):
             pygame.draw.line(screen, (255, 0, 0), 
                              coordenadas_clientes[route_with_deposit[i] - 1] if route_with_deposit[i] != 0 else deposit_coord,
                              coordenadas_clientes[route_with_deposit[i + 1] - 1] if route_with_deposit[i + 1] != 0 else deposit_coord,
-                             2)  
+                             2)  # Desenha a linha conectando os clientes
 
     pygame.display.flip()
-    clock.tick(60)  
+    clock.tick(60)  # Atualiza a tela com taxa de quadros de 60 FPS
+ 
 
 # Implementação do Algoritmo Guloso
 def greedy_algorithm():
@@ -248,7 +263,7 @@ if __name__ == "__main__":
     generations=3000
 
     best_value = [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
-    actived_best_value = False
+    actived_best_value = True
 
     if not actived_best_value:
         best_value = None
@@ -261,7 +276,7 @@ if __name__ == "__main__":
             generations=generations,
             population_method='knn',
             initial_value = best_solution_genetic_knn,
-            no_improvement_limit=200)
+            no_improvement_limit=1000)
 
     # Executa o Algoritmo Genético com o método aleatório
     best_solution_genetic = best_value
@@ -271,7 +286,7 @@ if __name__ == "__main__":
             generations=generations,
             population_method='random',
             initial_value = best_solution_genetic,
-            no_improvement_limit=200)
+            no_improvement_limit=1000)
 
     # Executa o Algoritmo Guloso
     greedy_solution = greedy_algorithm()

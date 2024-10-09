@@ -106,9 +106,15 @@ Inicialmente o guloso performou mais rápido e melhor em comparação ao genéti
 - Mutação adaptativa: Crucial para ajustar a exploração e exploração ao longo do tempo, evitando a estagnação do algoritmo.
 - Elitismo e torneio: Técnicas que garantem um equilíbrio entre exploração (diversidade) e exploração das melhores soluções.
 Com essas melhorias o genético começou a performar melhor, encontrando soluções mais otimizada comparada com o guloso.
+
 Na sequência realizamos uma abordagem heurística para a criação da população inicial do genético. Encontrando assim a melhor solução convergindo entre a 1500ª e 2000ª geração, para o contexto em questão:
-- best_value = [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
-- Incluímos uma flag em nosso algoritmo `actived_best_value` caso desejem utilziar o melhor valor encontrado durante esses testes como valor inicial de uma nova bateria de testes. Basta setar a flag para `True`.
+#### Melhor Solução
+- Rota: [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
+- Distância: 368
+
+OBS: Incluímos uma flag em nosso algoritmo `actived_best_value` caso desejem utilizar a melhor solução encontrada durante esses testes como valor inicial de uma nova bateria de testes. Basta setar a flag para `True`.
+
+![Descrição da Imagem](./data/Melhor%20Resultado.jpg)
 
 ### Comparação de Resultados:
 No final, são comparados os resultados de três abordagens:
