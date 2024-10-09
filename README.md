@@ -110,15 +110,17 @@ Com essas melhorias o genético começou a performar melhor, encontrando soluç�
 Na sequência realizamos uma abordagem heurística para a criação da população inicial do genético. Encontrando assim a melhor solução convergindo entre a 1500ª e 2000ª geração, para o contexto em questão:
 #### Melhor Solução
 - Rota: [4, 9, 7, 12, 10, 11, 14, 3, 1, 6, 5, 13, 8, 2, 15]
+- Sub_rotas
+  - [0 ,4, 9, 7, 12, 10, 11, 14, 3, 0]
+  - [0 ,1, 6, 5, 13, 8, 2, 15, 0]
+  - 0 representa o depósito
 - Distância: 368
+
+Concluímos que:
+- Algoritmo guloso: Simples e rápido, mas geralmente fornece uma solução subótima.
+- AG com população inicial aleatória: Explora um espaço de soluções mais diverso, o que pode ajudar a evitar mínimos locais, mas tende a convergir mais lentamente.
+- AG com população inicial baseada no KNN: Tendência a convergir mais rapidamente, devido à qualidade inicial da população. E foi quem estabeleceu dentre todas o melhor resultado (menor distância) considerando as demandas de cada cliente e capatidade do veículo.
 
 OBS: Incluímos uma flag em nosso algoritmo `actived_best_value` caso desejem utilizar a melhor solução encontrada durante esses testes como valor inicial de uma nova bateria de testes. Basta setar a flag para `True`.
 
 ![Descrição da Imagem](./data/Melhor%20Resultado.jpg)
-
-### Comparação de Resultados:
-No final, são comparados os resultados de três abordagens:
-
-- Algoritmo guloso: Simples e rápido, mas geralmente fornece uma solução subótima.
-- AG com população inicial aleatória: Explora um espaço de soluções mais diverso, o que pode ajudar a evitar mínimos locais, mas tende a convergir mais lentamente.
-- AG com população inicial baseada no KNN: Tendência a convergir mais rapidamente, devido à qualidade inicial da população. E foi quem estabeleceu dentre todas o melhor resultado (menor distância) considerando as demandas de cada cliente e capatidade do veículo.
