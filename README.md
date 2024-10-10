@@ -8,7 +8,7 @@
 - Michael dos Santos Silva(RM357009) - michael.shel96@gmail.com
 - Sonival dos Santos(RM356905) - sonival.santos@gmail.com
 
-Video(Youtube): 
+Video(Youtube): https://youtu.be/GR7Xm9ir9x8
 
 ## Descrição do Problema: Vehicle Routing Problem
 
