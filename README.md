@@ -125,7 +125,7 @@ Na sequência das melhorias, realizamos uma abordagem heurística para a criaç�
 Concluímos que:
 - Algoritmo guloso: Simples e rápido, mas geralmente fornece uma solução subótima.
 - AG com população inicial aleatória: Explora um espaço de soluções mais diverso, o que pode ajudar a evitar mínimos locais, mas tende a convergir mais lentamente.
-- AG com população inicial baseada no KNN: Tendência a convergir mais rapidamente, devido à qualidade inicial da população. E foi quem estabeleceu dentre todas o melhor resultado (menor distância) considerando as demandas de cada cliente e capatidade do veículo.
+- AG com população inicial baseada no KNN: Tendência a convergir mais rapidamente, devido à qualidade inicial da população. E foi quem estabeleceu dentre todas o melhor resultado (menor distância) considerando as demandas de cada cliente e capacidade do veículo.
 
 OBS: Incluímos uma flag em nosso algoritmo `actived_best_value` caso desejem utilizar a melhor solução encontrada durante esses testes como valor inicial de uma nova bateria de testes. Basta setar a flag para `True`.
 
