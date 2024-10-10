@@ -9,6 +9,7 @@
 - Sonival dos Santos(RM356905) - sonival.santos@gmail.com
 
 Video(Youtube): https://youtu.be/GR7Xm9ir9x8
+
 Github: https://github.com/joirneto/Tech-Challenge-2
 
 ## Descrição do Problema: Vehicle Routing Problem
